@@ -9,16 +9,22 @@ export const Contents = () => {
       const applicationId = process.env.NEXT_PUBLIC_APPLICATION_ID;
       const booksGenreId = '001004'; // ジャンル -> 小説
       const searchText = 'エッセイ'; // 検索ワード
-      const pageCount = 1;
-      const searchUrl = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${searchText}&booksGenreId=${booksGenreId}&hits=30&page=${pageCount}&applicationId=${applicationId}`;
-      const response = await fetch(searchUrl);
+      const getBooksCount = 10 // 取得件数
+      const searchUrl1 = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${searchText}&booksGenreId=${booksGenreId}&hits=${getBooksCount}&page=1&sort=sales&applicationId=${applicationId}`;
+      const response = await fetch(searchUrl1);
       let json;
       try {
         if (response.ok) {
           json = await response.json();
-          const data = json.Items;
-          console.log(json, data);
-          setbookData(data)
+          const pageCount = 1 + Math.floor(Math.random() * json.pageCount) // 表示するページ数をランダムに取得
+          console.log(json, pageCount, json.pageCount);
+          const searchUrl2 = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${searchText}&booksGenreId=${booksGenreId}&hits=${getBooksCount}&page=${pageCount}&sort=sales&applicationId=${applicationId}`;
+          setTimeout(async () => { // 429エラー回避のため
+            const response2 = await fetch(searchUrl2);
+            let json2 = await response2.json();
+            const data = json2.Items;
+            setbookData(data)
+          }, 1000);
         }
       } catch (e) {
         console.error(e);
