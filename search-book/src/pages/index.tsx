@@ -1,9 +1,11 @@
-import { Contents } from "../components/organisms/Contents";
+import { TopPage } from "../components/page/TopPage";
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
-      <Contents/>
+      <TopPage/>
     </div>
   )
 }
+
+export default Home;
