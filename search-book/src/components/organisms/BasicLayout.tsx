@@ -12,7 +12,8 @@ export const BasicLayout = ({ children }: Props) => {
       <BasicHeader />
       <Box sx={(theme) => ({
         maxWidth: '1200px',
-        margin: "auto",
+        margin: "1rem auto 0",
+        padding: "2rem"
       })}>
         {children}
       </Box>

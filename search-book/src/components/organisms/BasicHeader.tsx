@@ -1,5 +1,6 @@
-import { Header, Text, ActionIcon, useMantineColorScheme, Group, Box } from '@mantine/core'
+import { Header, Text, ActionIcon, useMantineColorScheme, Group, Box, Anchor } from '@mantine/core'
 import { IconSun, IconMoonStars, IconBook } from '@tabler/icons';
+import Link from 'next/link';
 
 export const BasicHeader = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -17,10 +18,19 @@ export const BasicHeader = () => {
         maxWidth: '1280px',
         margin: 'auto',
       })}>
-        <Group spacing={5}>
-          <IconBook size={32} color={dark ? '#C1C2C5' :'#565656'} />
-          <Text size={24} color={dark ? '#C1C2C5' :'#565656'} fw='bold'>Search Book</Text>
-        </Group>
+        <Anchor component={Link} href="/" sx={() => ({
+          transition: "opacity 0.3s ease-in",
+          ":hover": {
+            textDecoration: "none",
+            opacity: 0.5,
+            transition: "opacity 0.3s ease-in"
+          }
+        })}>
+          <Group spacing={5}>
+            <IconBook size={32} color={dark ? '#C1C2C5' : '#565656'} />
+            <Text size={24} color={dark ? '#C1C2C5' : '#565656'} fw='bold'>Search Book</Text>
+          </Group>
+        </Anchor>
         <Group>
           <ActionIcon
             variant="outline"
