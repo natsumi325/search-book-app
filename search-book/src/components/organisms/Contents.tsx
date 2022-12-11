@@ -1,5 +1,4 @@
 import { Anchor, Box, Image, Text } from '@mantine/core'
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
 }
 
 export const Contents = ({ id, name }: Props) => {
-  const [bookData, setBookData] = useState<bookData["Items"] | null>(null);
+  const [bookData, setBookData] = useState<TBookData["Items"] | null>(null);
   useEffect(() => {
     (async () => {
       const applicationId = process.env.NEXT_PUBLIC_APPLICATION_ID;
@@ -26,7 +25,7 @@ export const Contents = ({ id, name }: Props) => {
           setTimeout(async () => { // 429エラー回避のため
             const response2 = await fetch(searchUrl2);
             let json2 = await response2.json();
-            const data: bookData["Items"] = json2.Items;
+            const data: TBookData["Items"] = json2.Items;
             setBookData(data)
           }, 1000);
         }

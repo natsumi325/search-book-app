@@ -1,12 +1,14 @@
-type bookData = {
+type TBookData = {
   "GenreInformation": Array<>,
-  "Items": Array<{
-    "Item": bookItem
-  }>
+  "Items": Array<TBookItemData>
+}
+
+type TBookItemData = {
+  "Item": TBookDetailData,
 }
 
 // 参考URL: https://webservice.rakuten.co.jp/documentation/books-book-search
-type bookItem = {
+type TBookDetailData = {
   "affiliateUrl": string,
   "author": string,
   "authorKana": string,
