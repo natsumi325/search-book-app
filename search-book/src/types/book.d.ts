@@ -1,6 +1,14 @@
 type TBookData = {
   "GenreInformation": Array<>,
-  "Items": Array<TBookItemData>
+  "Items": Array<TBookItemData>,
+  "carrier": number,
+  "count": number,
+  "first": number,
+  "hits": number,
+  "last": number,
+  "page": number,
+  "pageCount":
+  100
 }
 
 type TBookItemData = {
