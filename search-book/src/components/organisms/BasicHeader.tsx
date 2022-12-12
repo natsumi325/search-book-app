@@ -8,7 +8,8 @@ export const BasicHeader = () => {
 
   return (
     <Header height={70} sx={(theme) => ({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blue[0]
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blue[0],
+      position: 'fixed',
     })}>
       <Box p='md' sx={() => ({
         display: 'flex',
@@ -22,7 +23,7 @@ export const BasicHeader = () => {
           transition: "opacity 0.3s ease-in",
           ":hover": {
             textDecoration: "none",
-            opacity: 0.5,
+            opacity: 0.7,
             transition: "opacity 0.3s ease-in"
           }
         })}>

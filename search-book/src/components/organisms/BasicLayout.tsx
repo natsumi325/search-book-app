@@ -10,9 +10,9 @@ export const BasicLayout = ({ children }: Props) => {
   return (
     <>
       <BasicHeader />
-      <Box sx={(theme) => ({
+      <Box sx={() => ({
         maxWidth: '1200px',
-        margin: "1rem auto 0",
+        margin: "5rem auto 0",
         padding: "2rem"
       })}>
         {children}
