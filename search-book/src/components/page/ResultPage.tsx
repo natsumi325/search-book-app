@@ -8,8 +8,7 @@ export const ResultPage = () => {
   const router = useRouter();
   return (
     <BasicLayout>
-      <Title size={24}>おすすめの本をさがす
-</Title>
+      <Title size={24}>おすすめの本をさがす</Title>
       {router.query.booksGenreId && router.query.booksGenreName
         ? <Contents id={router.query.booksGenreId} name={router.query.booksGenreName} />
         : <Text>検索条件が見つかりませんでした。再度検索してください。</Text>
