@@ -1,7 +1,7 @@
-import { Anchor, Box, Button, Divider, Flex, Image, Text } from '@mantine/core'
+import { Box, Button, Center, Flex, Loader, Text } from '@mantine/core'
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { scrollTop } from '../../utilities/scrollTop';
+import { BookContents } from './BookContents';
 
 type Props = {
   id: string | string[],
@@ -9,6 +9,7 @@ type Props = {
 }
 
 export const Contents = ({ id, name }: Props) => {
+  const [loading, setLoading] = useState<boolean>(true)
   const [bookData, setBookData] = useState<TBookData["Items"] | null>(null);
   const applicationId = process.env.NEXT_PUBLIC_APPLICATION_ID;
   const booksGenreId = id; // ジャンル
@@ -23,7 +24,7 @@ export const Contents = ({ id, name }: Props) => {
       const response = await fetch(searchUrl1);
       json = await response.json();
       let pageCount = json && 1 + Math.floor(Math.random() * json.pageCount) // 表示するページ数をランダムに取得
-      fetchRandomData(booksGenreId, getBooksCount, applicationId, pageCount)
+      await fetchRandomData(booksGenreId, getBooksCount, applicationId, pageCount)
     })();
   }, [])
 
@@ -35,47 +36,31 @@ export const Contents = ({ id, name }: Props) => {
       json2 = await response2.json();
       const data: TBookData["Items"] | null = json2 && json2.Items;
       setBookData(data)
+      setLoading(false);
     }, 1000);
   }, [])
 
   // 他の10件をランダム取得
   const fetchOtherData = useCallback(() => {
+    setLoading(true)
     let pageCount = json && 1 + Math.floor(Math.random() * json.pageCount) // 表示するページ数をランダムに取得
     fetchRandomData(booksGenreId, getBooksCount, applicationId, pageCount)
-    scrollTop();
   }, [])
 
   return (
     <>
       <Box>
         <Text mt="md">「{name}」：</Text>
-        {bookData && bookData.map((data, index) => (
-          <Flex key={data.Item.isbn} mt={40} gap="md">
-            <Text>{index + 1}.</Text>
-            <Anchor href={data.Item.itemUrl} target="_blank" sx={() => ({
-              transition: "opacity 0.3s ease-in",
-              ":hover": { opacity: 0.7, transition: "opacity 0.3s ease-in", }
-            })}>
-              <Image
-                width={175}
-                height={250}
-                radius="md"
-                src={data.Item.largeImageUrl}
-                alt={data.Item.title}
-              />
-            </Anchor>
-            <Box w="100%">
-              <Text size={20} fw={700}>{data.Item.title}</Text>
-              <Text size={14}>{data.Item.author}</Text>
-              <Divider my="sm" />
-              <Text>{data.Item.itemCaption ? data.Item.itemCaption : "あらすじはありません"}</Text>
-            </Box>
-          </Flex>
-        ))}
+        {loading
+          ? <Center mt="lg"><Loader /></Center>
+          : bookData && bookData.map((data, index) => (
+            <BookContents key={data.Item.isbn} data={data} index={index} />
+          ))
+        }
       </Box>
       <Flex mt={50} gap="lg" justify="center">
         <Button w={200} size="sm" component={Link} href="/" variant="outline">TOPへ戻る</Button>
-        <Button w={200} size="sm" onClick={fetchOtherData}>他のおすすめを探す</Button>
+        <Button w={200} size="sm" onClick={fetchOtherData} disabled={!bookData || loading}>他のおすすめを探す</Button>
       </Flex>
     </>
   )
