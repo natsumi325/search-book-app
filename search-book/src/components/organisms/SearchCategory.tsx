@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Title } from '@mantine/core';
+import { Box, Button, Flex } from '@mantine/core';
 import Link from 'next/link';
 import React from 'react'
 
