@@ -15,12 +15,12 @@ export const ResultPage = () => {
       // フリーワード検索結果
       return <WordResult word={router.query.booksSearchWord} />
     } else {
-      return <Text>検索条件が見つかりませんでした。別の条件で検索してください。</Text>
+      return <Text>おすすめの小説が見つかりませんでした。別の条件で検索してください。</Text>
     }
   }
   return (
     <BasicLayout>
-      <Title size={24}>おすすめの本をさがす</Title>
+      <Title size={24}>おすすめの小説をさがす</Title>
       {searchContents()}
     </BasicLayout>
   )

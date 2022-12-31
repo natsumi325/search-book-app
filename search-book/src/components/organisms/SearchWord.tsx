@@ -10,15 +10,14 @@ export const SearchWord = () => {
     if (inputEl.current?.value === "") {
       return;
     }
-    console.log(inputEl.current?.value);
     router.push({
-      pathname: "/result",   //URL
+      pathname: "/result",
       query: {
         "booksSearchWord": inputEl.current?.value,
       }
     });
     inputEl.current!.value = "";
-  }, []);
+  }, [router, inputEl]);
   return (
     <Flex mt='md' gap="md" align="flex-end">
       <TextInput

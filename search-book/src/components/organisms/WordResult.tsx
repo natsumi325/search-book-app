@@ -9,7 +9,7 @@ type Props = {
 
 export const WordResult = ({ word }: Props) => {
   const [loading, setLoading] = useState<boolean>(true)
-  const [bookData, setBookData] = useState<TBookData["Items"] | null>(null);
+  const [bookData, setBookData] = useState<TBookData | null>(null);
   const applicationId = process.env.NEXT_PUBLIC_APPLICATION_ID;
   const title = word; // フリーワード
   const getBooksCount = 10 // 取得件数
@@ -43,8 +43,7 @@ export const WordResult = ({ word }: Props) => {
       try {
         if (response2.ok) {
           json2 = await response2.json();
-          const data: TBookData["Items"] | null = json2 && json2.Items;
-          setBookData(data)
+          setBookData(json2)
           setLoading(false);
         } else {
           errorHandle();
@@ -71,13 +70,13 @@ export const WordResult = ({ word }: Props) => {
   return (
     <>
       <Box>
-        <Text mt="md">「{word}」：</Text>
+        <Text mt="md">「{word}」の結果：</Text>
         {loading
           ? <Center mt="lg"><Loader /></Center>
-          : bookData
-            ? bookData.map((data, index) => (
+          : bookData && bookData.Items && bookData.count > 0
+            ? bookData.Items.map((data, index) => (
               <BookContents key={data.Item.isbn} data={data} index={index} />
-            )) : "おすすめが見つかりませんでした。条件を変えて再度お試しください。"
+            )) : "おすすめの小説が見つかりませんでした。条件を変えて再度お試しください。"
         }
       </Box>
       <Flex mt={50} gap="lg" justify="center">
