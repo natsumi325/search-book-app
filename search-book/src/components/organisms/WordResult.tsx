@@ -7,7 +7,7 @@ type Props = {
   word: string | string[],
 }
 
-export const WordContents = ({ word }: Props) => {
+export const WordResult = ({ word }: Props) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [bookData, setBookData] = useState<TBookData["Items"] | null>(null);
   const applicationId = process.env.NEXT_PUBLIC_APPLICATION_ID;

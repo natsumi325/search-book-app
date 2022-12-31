@@ -8,7 +8,7 @@ type Props = {
   name: string | string[],
 }
 
-export const Contents = ({ id, name }: Props) => {
+export const CategoryResult = (({ id, name }: Props) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [bookData, setBookData] = useState<TBookData["Items"] | null>(null);
   const applicationId = process.env.NEXT_PUBLIC_APPLICATION_ID;
@@ -87,4 +87,4 @@ export const Contents = ({ id, name }: Props) => {
       </Flex>
     </>
   )
-}
+})
